@@ -27,14 +27,14 @@ RUN apt-add-repository ppa:nginx/stable -y && \
     sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/postgresql.list' && \
     curl -s https://packagecloud.io/gpg.key | apt-key add - && \
     echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list && \
-    curl --silent --location https://deb.nodesource.com/setup_5.x | bash - && \
+    curl --silent --location https://deb.nodesource.com/setup_6.x | bash - && \
     apt-get update
 
 # set the locale
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale  && \
     locale-gen en_US.UTF-8  && \
     ln -sf /usr/share/zoneinfo/UTC /etc/localtime
-    
+
 # setup bash
 COPY .bash_aliases /root
 
@@ -80,10 +80,10 @@ COPY fastcgi_params /etc/nginx/
 RUN phpenmod mcrypt && \
     mkdir -p /run/php/ && chown -Rf www-data.www-data /run/php
 
-# install sqlite 
+# install sqlite
 RUN apt-get install -y sqlite3 libsqlite3-dev
 
-# install mysql 
+# install mysql
 RUN echo mysql-server mysql-server/root_password password $DB_PASS | debconf-set-selections;\
     echo mysql-server mysql-server/root_password_again password $DB_PASS | debconf-set-selections;\
     apt-get install -y mysql-server && \
@@ -98,7 +98,7 @@ VOLUME ["/var/lib/mysql"]
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     printf "\nPATH=\"~/.composer/vendor/bin:\$PATH\"\n" | tee -a ~/.bashrc
-    
+
 # install prestissimo
 # RUN composer global require "hirak/prestissimo"
 
@@ -117,7 +117,7 @@ RUN /usr/bin/npm install -g gulp
 # install bower
 RUN /usr/bin/npm install -g bower
 
-# install redis 
+# install redis
 RUN apt-get install -y redis-server
 
 # install blackfire
