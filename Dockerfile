@@ -2,10 +2,10 @@ FROM ubuntu:14.04
 MAINTAINER Derek Bourgeois <derek@ibourgeois.com>
 
 # set some environment variables
-ARG APP_NAME app
-ARG APP_EMAIL app@laraedit.com
-ARG APP_DOMAIN app.dev
-ARG DEBIAN_FRONTEND noninteractive
+ENV APP_NAME app
+ENV APP_EMAIL app@laraedit.com
+ENV APP_DOMAIN app.dev
+ENV DEBIAN_FRONTEND noninteractive
 
 # upgrade the container
 RUN apt-get update && \
