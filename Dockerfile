@@ -2,10 +2,10 @@ FROM ubuntu:14.04
 MAINTAINER Derek Bourgeois <derek@ibourgeois.com>
 
 # set some environment variables
-ENV APP_NAME app
-ENV APP_EMAIL app@laraedit.com
-ENV APP_DOMAIN app.dev
-ENV DEBIAN_FRONTEND noninteractive
+ARG APP_NAME app
+ARG APP_EMAIL app@laraedit.com
+ARG APP_DOMAIN app.dev
+ARG DEBIAN_FRONTEND noninteractive
 
 # upgrade the container
 RUN apt-get update && \
@@ -18,12 +18,12 @@ RUN apt-get install -y software-properties-common curl build-essential \
     debconf-utils
 
 # add some repositories
-RUN apt-add-repository ppa:nginx/stable -y
-RUN apt-add-repository ppa:rwky/redis -y
-RUN apt-add-repository ppa:ondrej/php -y
-RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 5072E1F5
-RUN sh -c 'echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7" >> /etc/apt/sources.list.d/mysql.list'
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+RUN apt-add-repository ppa:nginx/stable -y && \
+    apt-add-repository ppa:rwky/redis -y && \
+    apt-add-repository ppa:ondrej/php -y && \
+    apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 5072E1F5 && \
+    sh -c 'echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7" >> /etc/apt/sources.list.d/mysql.list' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/postgresql.list' && \
     curl -s https://packagecloud.io/gpg.key | apt-key add - && \
     echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list && \
