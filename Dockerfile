@@ -18,6 +18,7 @@ RUN apt-get install -y software-properties-common curl build-essential \
     debconf-utils
 
 # add some repositories
+# apt-add-repository ppa:rwky/redis -y && \
 RUN apt-add-repository ppa:nginx/stable -y && \
     apt-add-repository ppa:ondrej/php -y && \
     apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 5072E1F5 && \
@@ -117,7 +118,7 @@ RUN /usr/bin/npm install -g gulp
 RUN /usr/bin/npm install -g bower
 
 # install redis
-RUN apt-get install -y redis-server
+# RUN apt-get install -y redis-server
 
 # install blackfire
 RUN apt-get install -y blackfire-agent blackfire-php
