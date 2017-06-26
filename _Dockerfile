@@ -81,7 +81,7 @@ RUN phpenmod mcrypt && \
     mkdir -p /run/php/ && chown -Rf www-data.www-data /run/php
 
 # install sqlite
-#RUN apt-get install -y sqlite3 libsqlite3-dev
+RUN apt-get install -y sqlite3 libsqlite3-dev
 
 # install mysql
 RUN echo mysql-server mysql-server/root_password password $DB_PASS | debconf-set-selections;\
@@ -103,10 +103,10 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 # RUN composer global require "hirak/prestissimo"
 
 # install laravel envoy
-#RUN composer global require "laravel/envoy"
+RUN composer global require "laravel/envoy"
 
 #install laravel installer
-#RUN composer global require "laravel/installer"
+RUN composer global require "laravel/installer"
 
 # install nodejs
 RUN apt-get install -y nodejs
