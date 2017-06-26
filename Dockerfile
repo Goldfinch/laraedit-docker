@@ -55,21 +55,10 @@ VOLUME ["/var/cache/nginx"]
 VOLUME ["/var/log/nginx"]
 
 # install php
-# Add the PPA for PHP 5.6
-RUN add-apt-repository ppa:ondrej/php5-5.6 -y
-
-# Update software list and install php + nginx
-RUN apt-get update \
-  && apt-get install -y --force-yes \
-  php5 \
-  php5-fpm \
-  php5-cli \
-  php5-mysql \
-  php5-mcrypt \
-  php5-curl \
-  php5-gd \
-  php5-intl \
-  mysql-client
+RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php \
+&& apt-get update && apt-get -y --force-yes install php5.6-cli php5.6-common libapache2-mod-php5.6 php5.6 php5.6-mysql php5.6-fpm php5.6-curl php5.6-gd php5.6-bz2 php5.6-mbstring php5.6-zip php5.6-memcached php5.6-xml php5.6-intl php5.6-xsl php5.6-soap libzip4  php5.6-mcrypt \
+&& a2enmod php5.6 \
+&& apt-get -y clean
 
 # install sqlite
 #RUN apt-get install -y sqlite3 libsqlite3-dev
